@@ -1,2 +1,8 @@
 .svn
 .DS_Store
+
+# xcode noise
+build/*
+*.pbxuser
+*.mode1v3
+*.perspectivev3
