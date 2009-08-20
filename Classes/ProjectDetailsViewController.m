@@ -31,7 +31,6 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	
 	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 6, SETTING_HEADER_ROW_WIDTH, SETTING_HEADER_HEIGHT)];
 	headerView.backgroundColor = [UIColor clearColor];
 	
@@ -50,12 +49,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	
 	return section == 0 ? 4 : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
 	NSUInteger sectionIndex = [indexPath section];
 	NSUInteger rowIndex = [indexPath row];
 	
@@ -71,7 +68,6 @@
 }
 
 - (UITableViewCell *)getProjectPropertiesTableViewCell:(UITableView *)tableView rowIndex:(NSUInteger)rowIndex {
-
 	NSString *cellIdentifier = @"projectDetailCell";
 	
 	ProjectDetailsTableViewCell *cell = (ProjectDetailsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -114,36 +110,34 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
-		
-		cell.text = @"Force Build";
-		cell.textAlignment = UITextAlignmentCenter;
-		cell.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
-		cell.textColor = [UIColor colorWithRed:0.384 green:0.459 blue:0.612 alpha:1.0];
+
+		cell.textLabel.text = @"Force Build";
+		cell.textLabel.textAlignment = UITextAlignmentCenter;
+		cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+		cell.textLabel.textColor = [UIColor colorWithRed:0.384 green:0.459 blue:0.612 alpha:1.0];
 	}
 
 	return cell;
 }
 
 - (UITableViewCell *)getViewLogTableViewCell:(UITableView *)tableView rowIndex:(NSUInteger)rowIndex {
-	
 	NSString *cellIdentifier = @"ViewLogIdentifier";
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
 		
-		cell.text = @"View Last Build Log";
+		cell.textLabel.text = @"View Last Build Log";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.textAlignment = UITextAlignmentCenter;
-		cell.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
-		cell.textColor = [UIColor colorWithRed:0.384 green:0.459 blue:0.612 alpha:1.0];
+		cell.textLabel.textAlignment = UITextAlignmentCenter;
+		cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+		cell.textLabel.textColor = [UIColor colorWithRed:0.384 green:0.459 blue:0.612 alpha:1.0];
 	}
 	
 	return cell;
 }
 		
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)newIndexPath {
-    
 	NSUInteger sectionIndex = newIndexPath.section;
 	
 	if (sectionIndex == 1) {
@@ -159,7 +153,6 @@
 }
 
 - (void)viewLog {
-	
 	BuildDetailsViewController *buildDetailsViewController = [[BuildDetailsViewController alloc] init];
 	buildDetailsViewController.url = [NSURL URLWithString:project.webUrl];
 	
@@ -169,7 +162,6 @@
 }
 
 - (void)forceBuild {
-	
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to force a build?"
 															 delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:@"Yes" otherButtonTitles:nil];
 	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
@@ -185,7 +177,6 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Force Build Request" message:@"Sent!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alertView show];
 	[[self navigationController] popToRootViewControllerAnimated:YES];
@@ -193,7 +184,6 @@
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	
 	return YES;
 }
 

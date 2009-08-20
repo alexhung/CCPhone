@@ -24,10 +24,10 @@ static NSArray *filenames = nil;
 	
     if (!initialized) {
 
-		NSString *plist = @"('', 'cctray.xml', 'xml', 'XmlStatusReport.aspx' )";
-		filenames = [[plist propertyList] copy];
+			NSString *plist = @"('', 'cctray.xml', 'xml', 'XmlStatusReport.aspx' )";
+			filenames = [[plist propertyList] copy];
 
-        initialized = YES;
+			initialized = YES;
     }
 }
 
@@ -92,14 +92,11 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	NSMutableArray *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"projects"];
 	
 	if (data == nil) {
-		
 		projects = [[NSMutableArray alloc] init];
 	}
 	else {
-		
 		NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
 		for (NSData *item in data) {
-			
 			CCProject *project = [NSKeyedUnarchiver unarchiveObjectWithData:item];
 			[array addObject:project];
 		}
@@ -109,10 +106,8 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 }
 
 - (void)saveProjects {
-	
 	NSMutableArray *array = [[NSMutableArray alloc] init];
 	for (CCProject *project in projects) {
-		
 		[array addObject:[NSKeyedArchiver archivedDataWithRootObject:project]];
 	}
 	
@@ -120,37 +115,33 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 }
 
 - (void)save {
-	
 	[[NSUserDefaults standardUserDefaults] setInteger:self.serverType forKey:@"serverType"];
 	[[NSUserDefaults standardUserDefaults] setObject:[self.url absoluteString] forKey:@"serverUrl"];
 	[self saveProjects];
 }
 
 - (void)fetchProjects:(UIViewController *)controller {
-	
 	if (controller) {
 		viewController = controller;
 	} else {
-		
 		NSLog(@"controller is nil!");
 		return;
 	}
 	
-	if ([viewController respondsToSelector:@selector(startRefreshing)])
+	if ([viewController respondsToSelector:@selector(startRefreshing)]) {
 		[viewController startRefreshing];
-	else {
-		
+	}
+	else {		
 		NSLog(@"%s can’t be placed\n", [NSStringFromClass([viewController class]) UTF8String]);
 		return;
 	}
 	
 	@try {
-		
 		[self initURL];
 		
 		NSURLRequest *urlRequest = [NSURLRequest requestWithURL:self.url
-													cachePolicy:NSURLRequestReloadIgnoringCacheData
-												timeoutInterval:10];
+																								cachePolicy:NSURLRequestReloadIgnoringCacheData
+																						timeoutInterval:10];
 		
 		NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
 		if (connection) {
@@ -176,7 +167,6 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	
 	[connection release];
 	[self removeAllProjects];
 	numberOfFailedProjects = 0;
@@ -190,14 +180,15 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	BOOL result = [parser parse];
 	
 	if (result == NO) {
-		
 		NSError *error = [parser parserError];
+		
 		if (error) {
-			
-			if ([viewController respondsToSelector:@selector(showFetchProjectError:)])
+			if ([viewController respondsToSelector:@selector(showFetchProjectError:)]) {
 				[viewController showFetchProjectError:[error localizedDescription]];
-			else 
+			}
+			else {
 				NSLog(@"%s can’t be placed\n", [NSStringFromClass([viewController class]) UTF8String]);
+			} 
 		}
 	}		
 	
@@ -207,7 +198,6 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 	
 	if ([elementName isEqualToString:@"Project"]) {
-		
 		NSString *name = [attributeDict valueForKey:@"name"];
 		NSString *category = [attributeDict valueForKey:@"category"];
 		NSString *activity = [attributeDict valueForKey:@"activity"];
@@ -235,7 +225,6 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
-	
 	[self saveProjects];
 	
 	if ([viewController respondsToSelector:@selector(refreshView)])
@@ -250,7 +239,6 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	
 	NSLog([error localizedDescription]);
 }
 
@@ -311,25 +299,20 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	return [NSString stringWithString:mutableCopy];
 }
 
-- (NSURL *)urlByAddingSchemeIfNecessary:(NSString *)urlString
-{
+- (NSURL *)urlByAddingSchemeIfNecessary:(NSString *)urlString {
 	if (![urlString hasPrefix:@"http://"] && ![urlString hasPrefix:@"https://"]) {
-		
 		return [NSURL URLWithString:[@"http://" stringByAppendingString:urlString]];
 	}
 
 	return [NSURL URLWithString:urlString];
 }
 
-- (NSURL *)completeCruiseControlURL:(NSString *)anUrl forServerType:(CCMServerType)ccServerType withPath:(NSString *)path
-{
+- (NSURL *)completeCruiseControlURL:(NSString *)anUrl forServerType:(CCMServerType)ccServerType withPath:(NSString *)path {
 	NSString *completion = [path stringByAppendingPathComponent:[filenames objectAtIndex:ccServerType]];
 	NSString *urlString = anUrl;
 	if (![urlString hasSuffix:completion]) {
-	
 		// can't use appendPathComponent because that normalises the double-slash in http://
 		if (![urlString hasSuffix:@"/"]) {
-			
 			urlString = [urlString stringByAppendingString:@"/"];
 		}
 
@@ -339,8 +322,7 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	return [self urlByAddingSchemeIfNecessary:urlString];
 }
 
-- (NSURL *)completeCruiseControlURL:(NSString *)anUrl forServerType:(CCMServerType)ccServerType
-{
+- (NSURL *)completeCruiseControlURL:(NSString *)anUrl forServerType:(CCMServerType)ccServerType {
 	if (ccServerType == CCMUnknownServer) {
 		
 		NSEnumerator *urlEnum = [[self completeCruiseControlURLs:anUrl] objectEnumerator];
@@ -361,8 +343,7 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	}
 }
 
-- (BOOL)testConnection:(NSURL *)serverURL
-{
+- (BOOL)testConnection:(NSURL *)serverURL {
 	NSURLRequest *request = [NSURLRequest requestWithURL:serverURL
 											 cachePolicy:NSURLRequestReloadIgnoringCacheData
 										 timeoutInterval:30.0];
@@ -371,7 +352,6 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
 	if (error != nil) {
-		
 		[NSException raise:@"ConnectionException" format:[error localizedDescription]];
 	}
 	
@@ -379,8 +359,7 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	return (status >= 200 && status != 404 && status < 500);
 }
 
-- (NSArray *)completeCruiseControlURLs:(NSString *)anUrl
-{
+- (NSArray *)completeCruiseControlURLs:(NSString *)anUrl {
 	NSMutableSet *urls = [NSMutableSet set];
 	[urls addObject:[self completeCruiseControlURL:anUrl forServerType:CCMCruiseControlDashboard]];
 	[urls addObject:[self completeCruiseControlURL:anUrl forServerType:CCMCruiseControlDashboard withPath:@"dashboard"]];
@@ -391,7 +370,6 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 }
 
 - (void)dealloc {
-	
 	[url release];
 	[projects release];
 	[receivedData release];

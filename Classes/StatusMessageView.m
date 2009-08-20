@@ -12,8 +12,7 @@
 @implementation StatusMessageView
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        
+	if (self = [super initWithFrame:frame]) {
 		self.hidden = YES;
 		self.backgroundColor = [CCPhoneAppDelegate darkGrey];
 		
@@ -23,13 +22,12 @@
 		label.backgroundColor = [UIColor clearColor];
 		label.numberOfLines = 2;
 		[self addSubview:label];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)layoutSubviews {
-	
-    [super layoutSubviews];
+	[super layoutSubviews];
 	
 	UIApplication *app = [UIApplication sharedApplication];
 	UIWindow *window = app.keyWindow;
@@ -40,10 +38,10 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
 	UIColor *backgroundColor = self.backgroundColor;
-	if (!backgroundColor)
+	if (!backgroundColor) {
 		backgroundColor = [UIColor blackColor];
+	}
 	
 	CGColorRef color = CGColorCreateCopyWithAlpha(backgroundColor.CGColor, self.alpha);
 	
@@ -55,17 +53,14 @@
 }
 
 - (void)showView {
-	
 	self.hidden = NO;
 }
 
 - (void)hideView {
-	
 	self.hidden = YES;
 }
 
 - (void)setText:(NSString *)newText {
-	
 	label.text = newText;
 }
 
@@ -74,9 +69,8 @@
 }
 
 - (void)dealloc {
-
 	[label release];
-    [super dealloc];
+	[super dealloc];
 }
 
 

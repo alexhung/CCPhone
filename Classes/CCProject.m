@@ -27,13 +27,13 @@ static NSString *XML_DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss";
 static NSDateFormatter *dateFormatter;
 
 + (void)initialize {
-    static BOOL initialized = NO;
-    if (!initialized) {
+	static BOOL initialized = NO;
+	if (!initialized) {
 		[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
 		dateFormatter = [[NSDateFormatter alloc] init];
 		[dateFormatter setDateFormat:XML_DATE_FORMAT];
-        initialized = YES;
-    }
+		initialized = YES;
+	}
 }
 
 -(id)initWithName:(NSString *)newName category:(NSString *)newCategory activity:(NSString *)newActivity
@@ -60,12 +60,10 @@ static NSDateFormatter *dateFormatter;
 }
 
 - (NSDate *)convertStringToDate:(NSString *)dateString {
-	
 	return [dateFormatter dateFromString:dateString];
 }
 
 + (NSString *)convertDateToString:(NSDate *)date {
-	
 	NSDateFormatter *displayFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[displayFormatter setLocale:[NSLocale currentLocale]];
 	[displayFormatter setTimeZone:[NSTimeZone systemTimeZone]];
@@ -75,12 +73,10 @@ static NSDateFormatter *dateFormatter;
 }
 
 - (NSString *)getServerAlias {
-	
 	NSString *serverAlias = [NSString string];
 	
 	NSArray *splitPaths = [webUrl componentsSeparatedByString:@"/"];
 	for (int index = 0; index < splitPaths.count; index++) {
-		
 		NSString *path = [splitPaths objectAtIndex:index];
 		if ([path isEqualToString:@"server"] && (index + 1) < splitPaths.count) {
 			serverAlias = [splitPaths objectAtIndex:(index + 1)];
@@ -91,7 +87,6 @@ static NSDateFormatter *dateFormatter;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
-	
 	self.name = [coder decodeObjectForKey:@"name"];
 	self.category = [coder decodeObjectForKey:@"category"];
 	self.activity = [coder decodeObjectForKey:@"activity"];
@@ -106,7 +101,6 @@ static NSDateFormatter *dateFormatter;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-	
 	[coder encodeObject:name forKey:@"name"];
 	[coder encodeObject:category forKey:@"category"];
 	[coder encodeObject:activity forKey:@"activity"];

@@ -13,8 +13,7 @@
 
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        
+	if (self = [super initWithFrame:frame]) {
 		self.hidden = YES;
 		self.alpha = 0.8;
 		
@@ -28,13 +27,12 @@
 		label.textColor = [UIColor whiteColor];
 		label.backgroundColor = [UIColor clearColor];
 		[self addSubview:label];
-    }
-    return self;
+	}
+	return self;
 }
 
-- (void)layoutSubviews {
-	
-    [super layoutSubviews];
+- (void)layoutSubviews {	
+  [super layoutSubviews];
 	
 	UIApplication *app = [UIApplication sharedApplication];
 	UIWindow *window = app.keyWindow;
@@ -44,39 +42,33 @@
 	label.frame = CGRectMake(self.center.x - 40, centerPoint.y, 100, 20);
 }
 
-- (void)drawRect:(CGRect)rect 
-{
+- (void)drawRect:(CGRect)rect {
 	// Drawing code
 	UIColor *backgroundColor = self.backgroundColor;
-	if (!backgroundColor)
+	if (!backgroundColor) {
 		backgroundColor = [UIColor blackColor];
+	}
 	
-	CGColorRef color = CGColorCreateCopyWithAlpha(backgroundColor.CGColor, self.alpha);
-	
+	CGColorRef color = CGColorCreateCopyWithAlpha(backgroundColor.CGColor, self.alpha);	
 	[UIColor colorWithCGColor:color].set;
-	
 	UIRectFill(self.frame);
-	
 	CGColorRelease(color);
 }
 
 - (void)startRefreshing {
-	
 	self.hidden = NO;
 	[activityIndicator startAnimating];
 }
 
 - (void)stopRefreshing {
-	
 	self.hidden = YES;
 	[activityIndicator stopAnimating];
 }
 
 - (void)dealloc {
-	
 	[activityIndicator release];
 	[label release];
-    [super dealloc];	
+	[super dealloc];	
 }
 
 

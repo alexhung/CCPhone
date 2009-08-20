@@ -15,20 +15,17 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 
 	self.title = @"Server Type";
-	
 	self.view.backgroundColor = [CCPhoneAppDelegate darkGrey];
 	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 	self.tableView.separatorColor = [UIColor lightGrayColor];
 	self.tableView.sectionHeaderHeight = SETTING_HEADER_HEIGHT;
 }
 
-
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
+  [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 }
 
 #pragma mark Table view methods
@@ -52,55 +49,50 @@
     return 1;
 }
 
-
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 4;
 }
 
-
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	NSUInteger rowIndex = [indexPath row];
 	NSString *cellIdentifier = @"ServerTypeCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
-    }
-    
-    switch (rowIndex) {
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+	if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
+	}
+	
+	switch (rowIndex) {
 		case 0:
 			cell.accessoryType = ccServer.serverType == CCMUnknownServer ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-			cell.text = [CCServer serverTypeStringFromType:CCMUnknownServer];
+			cell.textLabel.text = [CCServer serverTypeStringFromType:CCMUnknownServer];
 			break;
 
 		case 1:
 			cell.accessoryType = ccServer.serverType == CCMCruiseControlDashboard ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-			cell.text = [CCServer serverTypeStringFromType:CCMCruiseControlDashboard];
+			cell.textLabel.text = [CCServer serverTypeStringFromType:CCMCruiseControlDashboard];
 			break;
 			
 		case 2:
 			cell.accessoryType = ccServer.serverType == CCMCruiseControlClassic ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-			cell.text = [CCServer serverTypeStringFromType:CCMCruiseControlClassic];
+			cell.textLabel.text = [CCServer serverTypeStringFromType:CCMCruiseControlClassic];
 			break;
 			
 		case 3:
 			cell.accessoryType = ccServer.serverType == CCMCruiseControlDotNetServer ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-			cell.text = [CCServer serverTypeStringFromType:CCMCruiseControlDotNetServer];
+			cell.textLabel.text = [CCServer serverTypeStringFromType:CCMCruiseControlDotNetServer];
 			break;
 			
 		default:
 			break;
 	}
 
-    return cell;
+	return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
     NSInteger serverTypeIndex = (int)ccServer.serverType;
@@ -112,23 +104,20 @@
 	
     UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
     if (newCell.accessoryType == UITableViewCellAccessoryNone) {
-		
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        ccServer.serverType = indexPath.row;
-		[ccServer save];
+			newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+			ccServer.serverType = indexPath.row;
+			[ccServer save];
     }
 	
     UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:oldIndexPath];
     if (oldCell.accessoryType == UITableViewCellAccessoryCheckmark) {
-		
-        oldCell.accessoryType = UITableViewCellAccessoryNone;
+			oldCell.accessoryType = UITableViewCellAccessoryNone;
     }	
 }
 
-
 - (void)dealloc {
 	[ccServer release];
-    [super dealloc];
+	[super dealloc];
 }
 
 

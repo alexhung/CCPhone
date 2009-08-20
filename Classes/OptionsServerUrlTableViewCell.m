@@ -45,44 +45,34 @@
 }
 
 - (void)layoutSubviews {
-	
-    [super layoutSubviews];
+	[super layoutSubviews];
 	
 	CGRect contentRect = self.contentView.bounds;
 
-    if (!self.editing) {
-		
-		titleLabel.frame = CGRectMake(contentRect.origin.x + 20, contentRect.origin.y + 1,
-									  50, contentRect.size.height);
+	if (!self.editing) {
+		titleLabel.frame = CGRectMake(contentRect.origin.x + 20, contentRect.origin.y + 1, 50, contentRect.size.height);
 		contentTextField.frame = CGRectMake(titleLabel.frame.size.width + 30, contentRect.origin.y + 14,
-										(contentRect.size.width - titleLabel.frame.size.width) - 20, contentRect.size.height - 26);
+									(contentRect.size.width - titleLabel.frame.size.width) - 20, contentRect.size.height - 26);
 	}
 }
 
 - (void)setTitle:(NSString *)newTitle {
-	
 	titleLabel.text = newTitle;
 }
 
 - (void)setCcServer:(CCServer *)newCCServer {
-	
 	ccServer = newCCServer;
 	contentTextField.text = newCCServer.url.absoluteString;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	
 	ccServer.url = [NSURL URLWithString:contentTextField.text];
 	[ccServer save];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
 	[super setSelected:selected animated:animated];
-
-	// Configure the view for the selected state
 }
-
 
 - (void)dealloc {
 	[ccServer release];

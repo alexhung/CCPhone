@@ -16,7 +16,6 @@
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
 	if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 
 		titleLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
@@ -37,13 +36,11 @@
 }
 
 - (void)layoutSubviews {
-	
-    [super layoutSubviews];
+	[super layoutSubviews];
 	
 	CGRect contentRect = self.contentView.bounds;
 
-    if (!self.editing) {
-		
+	if (!self.editing) {
 		titleLabel.frame = CGRectMake(contentRect.origin.x + 20, contentRect.origin.y + 1,
 									  95, contentRect.size.height);
 		contentLabel.frame = CGRectMake(titleLabel.frame.size.width + 30, contentRect.origin.y + 14,
@@ -52,25 +49,19 @@
 }
 
 - (void)setTitle:(NSString *)newTitle {
-	
 	titleLabel.text = newTitle;
 }
 
 - (void)setContent:(NSString *)newContent {
-	
 	contentLabel.text = newContent;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
 	[super setSelected:selected animated:animated];
-
 	// Configure the view for the selected state
 }
 
-
 - (void)dealloc {
-
 	[super dealloc];
 }
 

@@ -17,17 +17,14 @@
 @synthesize refreshDelegate;
 
 - (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-		
+	if (self = [super initWithStyle:style]) {	
 		self.navigationController.delegate = self;
-    }
-    return self;
+	}
+	return self;
 }
 
-
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 
 	self.title = @"Options";
 	
@@ -42,22 +39,12 @@
 }
 
 - (void)dismissView:(id)sender {
-	
 	[[self navigationController] dismissModalViewControllerAnimated:YES];
 	[refreshDelegate performSelector:@selector(fetchProjects:)];
 }
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
 
 #pragma mark Table view methods
@@ -81,16 +68,11 @@
     return 1;
 }
 
-
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
 
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {    
 	NSUInteger rowIndex = [indexPath row];
 	
 	if (rowIndex == NSNotFound) {
@@ -129,11 +111,8 @@
     }
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 	if ([indexPath row] == 1) {
-		
 		OptionsServerTypeViewController *serverTypeViewController = [[OptionsServerTypeViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		serverTypeViewController.ccServer = self.ccServer;
 		[self.navigationController pushViewController:serverTypeViewController animated:YES];
@@ -142,17 +121,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	
 	[super viewWillAppear:animated];
 	
 	[self.tableView reloadData];
 }
 
 - (void)dealloc {
-	
 	[ccServer release];
 	[refreshDelegate release];
-    [super dealloc];
+	[super dealloc];
 }
 
 

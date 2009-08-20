@@ -21,12 +21,11 @@
 }
 
 - (void)viewDidLoad {
-	
-    webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    webView.backgroundColor = [UIColor whiteColor];
-    webView.scalesPageToFit = YES;
-    webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    webView.delegate = self;
+	webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+	webView.backgroundColor = [UIColor whiteColor];
+	webView.scalesPageToFit = YES;
+	webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+	webView.delegate = self;
 	[self.view addSubview:webView];
 	
 	refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reload:)];
@@ -41,55 +40,42 @@
 }
 
 - (void)reload:(id)sender {
-
 	[self startActivityAnimation];
 	[webView reload];
 }
 
 - (void)startActivityAnimation {
-	
 	self.navigationItem.rightBarButtonItem = activityButton;
 	UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)activityButton.customView;
 	[activityIndicator startAnimating];
 }
 
 - (void)stopActivityAnimation {
-	
 	UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)activityButton.customView;
 	[activityIndicator stopAnimating];
 	self.navigationItem.rightBarButtonItem = refreshButton;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    // finished loading, hide the activity indicator in the status bar
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self stopActivityAnimation];
 }
 
-- (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error
-{
-    // load error, hide the activity indicator in the status bar
+- (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error {
     [self stopActivityAnimation];
 	
-    // report the error inside the webview
     NSString* errorString = [NSString stringWithFormat:
                              @"<html><center><font size=+5 color='red'>An error occurred:<br>%@</font></center></html>",
                              error.localizedDescription];
     [aWebView loadHTMLString:errorString baseURL:nil];
 }
 
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// Return YES for supported orientations
 	return YES;
 }
 
-
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-	// Release anything that's not essential, such as cached data
 }
-
 
 - (void)dealloc {
 	[webView release];

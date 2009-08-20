@@ -16,10 +16,8 @@
 
 @synthesize ccServer;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
 	if (self = [super initWithStyle:style]) {
-		
 		self.title = @"Projects";
 	}
 	
@@ -27,7 +25,6 @@
 }
 
 - (void)viewDidLoad {
-
 	self.view.backgroundColor = [CCPhoneAppDelegate darkGrey];
 	self.tableView.separatorColor = [UIColor lightGrayColor];
 	
@@ -53,14 +50,11 @@
 }
 
 - (void)fetchProjects:(id)sender {
-	
 	statusMessageView.hidden = YES;
-	
 	[ccServer fetchProjects:self];
 }
 
 - (void)showOptions:(id)sender {
-	
 	OptionsViewController *optionsViewController = [[[OptionsViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
 	optionsViewController.ccServer = ccServer;
 	optionsViewController.refreshDelegate = self;
@@ -70,19 +64,16 @@
 }
 
 - (void)startRefreshing {
-	
 	self.navigationItem.rightBarButtonItem.enabled = NO;
 	[refreshView startRefreshing];
 }
 
 - (void)stopRefreshing {
-	
 	[refreshView stopRefreshing];
 	self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (void)showFetchProjectError:(NSString *)message {
-	
 	[self stopRefreshing];
 	/*
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Refresh Error"
@@ -95,12 +86,10 @@
 }
 
 - (void)setAppBadge:(int)failedBuilds {
-	
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:failedBuilds];
 }
 
 - (void)refreshView {
-	
 	[self stopRefreshing];
 	
 	if (ccServer.projects.count == 0) {
@@ -111,8 +100,7 @@
 	}
 }
 
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
 }
 
@@ -129,7 +117,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	
 	NSUInteger row = indexPath.row;
 	if (row != NSNotFound) {
 		ProjectDetailsViewController *projectDetailsController = [[ProjectDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -142,7 +129,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 	NSUInteger rowIndex = [indexPath row];
 	
 	if (rowIndex == NSNotFound) {
@@ -153,7 +139,6 @@
 }
 
 - (ProjectTableViewCell *)getProjectTableViewCell:(UITableView *)tableView atRowIndex:(NSUInteger)rowIndex {
-	
 	NSString *cellIdentifier = @"projectCell";
 	
 	ProjectTableViewCell *cell = (ProjectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -171,7 +156,6 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	
 	refreshView.frame = [self.view bounds];
 }
 
@@ -181,7 +165,6 @@
 }
 
 - (void)dealloc {
-	
 	[refreshView release];
 	[statusMessageView release];
 	[super dealloc];
