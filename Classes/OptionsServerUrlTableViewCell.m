@@ -1,11 +1,3 @@
-//
-//  ProjectDetailsTableViewCell.m
-//  CCPhone
-//
-//  Created by Alex Hung on 6/28/08.
-//  Copyright 2008 ThoughtWorks. All rights reserved.
-//
-
 #import "OptionsServerUrlTableViewCell.h"
 
 
@@ -14,8 +6,8 @@
 @synthesize title;
 @synthesize ccServer;
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-	if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 

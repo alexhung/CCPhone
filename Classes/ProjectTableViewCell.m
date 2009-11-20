@@ -1,18 +1,10 @@
-//
-//  ProjectTableViewCell.m
-//  CCPhone
-//
-//  Created by ahung on 6/27/08.
-//  Copyright 2008 ThoughtWorks. All rights reserved.
-//
-
 #import "ProjectTableViewCell.h"
 #import "CCPhoneAppDelegate.h"
 
 @implementation ProjectTableViewCell
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-	if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		buildStatusImageView = [[UIImageView alloc] init];

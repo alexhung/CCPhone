@@ -232,14 +232,12 @@ NSComparisonResult projectSorter(CCProject *project1, CCProject *project2, void 
 	else 
 		NSLog(@"%s can’t be placed\n", [NSStringFromClass([viewController class]) UTF8String]);
 	
-	if ([viewController respondsToSelector:@selector(setAppBadge:)])
-		[viewController setAppBadge:self.numberOfFailedProjects];
-	else 
-		NSLog(@"%s can’t be placed\n", [NSStringFromClass([viewController class]) UTF8String]);
+  UIApplication *app = [UIApplication sharedApplication];
+  [app setApplicationIconBadgeNumber:self.numberOfFailedProjects];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	NSLog([error localizedDescription]);
+	NSLog(@"didFailWithError: %s", [error localizedDescription]);
 }
 
 + (CCMServerType)serverTypeFromString:(NSString *)ccServerTypeString {

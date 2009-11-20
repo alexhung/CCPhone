@@ -1,11 +1,3 @@
-//
-//  OptionsServerTypeTableViewCell.m
-//  CCPhone
-//
-//  Created by Alex Hung on 12/7/08.
-//  Copyright 2008 ThoughtWorks. All rights reserved.
-//
-
 #import "OptionsServerTypeTableViewCell.h"
 
 
@@ -14,8 +6,8 @@
 @synthesize title;
 @synthesize content;
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-	if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
 		titleLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];

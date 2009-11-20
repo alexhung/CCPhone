@@ -1,11 +1,3 @@
-//
-//  CCPhoneAppDelegate.m
-//  CCPhone
-//
-//  Created by Alex Hung on 6/21/08.
-//  Copyright ThoughtWorks 2008. All rights reserved.
-//
-
 #import "CCPhoneAppDelegate.h"
 #import "ProjectsViewController.h"
 
@@ -41,12 +33,10 @@
 }
 
 + (UIColor*)darkGrey {
-	
 	return [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.0];
 }
 
 + (UIColor*)lightGrey {
-	
 	return [UIColor colorWithRed:0.20 green:0.20 blue:0.20 alpha:1.0];
 }
 

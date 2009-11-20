@@ -1,11 +1,3 @@
-//
-//  CCServer.h
-//  CCPhone
-//
-//  Created by Alex Hung on 7/1/08.
-//  Copyright 2008 ThoughtWorks. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "CCProject.h"
 
