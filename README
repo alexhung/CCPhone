@@ -1,0 +1,3 @@
+iOS app to monitor build status on CruiseControl CI server.
+
+Should work with all versions of CC, though only thoroughly tested against CC.NET and CC (java).
